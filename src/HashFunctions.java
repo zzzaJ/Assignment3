@@ -54,7 +54,7 @@ public class HashFunctions {
             hashVal = (37 * hashVal) + key.charAt(i);
             
         }
-        return hashVal % TABLESIZE;
+        return Math.abs(hashVal % TABLESIZE);
     }
     
     public int hash4 ( String key) {

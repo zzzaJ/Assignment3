@@ -52,77 +52,61 @@ public class EntropyCalculation {
             
            hashVals1.add(hf.hash1(keys[i])); 
            hashVals2.add(hf.hash2(keys[i])); 
-           hashVals3.add(hf.hash3(keys[i])); 
-           if(hf.hash3(keys[i])<0){
-               
-               System.out.println(keys[i] + hf.hash3(keys[i]));
-               
-           }
-           
+           hashVals3.add(hf.hash3(keys[i]));            
            hashVals4.add(hf.hash4(keys[i])); 
            
         }
         
+        for(int i = 0; i < 10000; i++){ //adding elements from hash value lists to hash tables
+            
+            hashtbl1[hashVals1.get(i)] = hashtbl1[hashVals1.get(i)] + 1;
+            hashtbl2[hashVals2.get(i)] = hashtbl2[hashVals2.get(i)] + 1;
+            hashtbl3[hashVals3.get(i)] = hashtbl3[hashVals3.get(i)] + 1;
+            hashtbl4[hashVals4.get(i)] = hashtbl4[hashVals4.get(i)] + 1;
+            
+        }
+ 
+       
+        double sum1 = 0;
+        double sum2 = 0;
+        double sum3 = 0;
+        double sum4 = 0;
         
-//        for(int i = 0; i < 10000; i++){ //adding elements from hash value lists to hash tables
-//            
-//            hashtbl1[hashVals1.get(i)] = hashtbl1[hashVals1.get(i)] + 1;
-//            hashtbl2[hashVals2.get(i)] = hashtbl2[hashVals2.get(i)] + 1;
-//            hashtbl3[hashVals3.get(i)] = hashtbl3[hashVals3.get(i)] + 1;
-//            hashtbl4[hashVals4.get(i)] = hashtbl4[hashVals4.get(i)] + 1;
-//            
-//        }
+
         
-//        int counttest = 0; // for testing 
-//
-//        for(int i = 0; i < 10000; i++){ // for testing 
-//            
-//            if(hashVals1.get(i)>20011 || hashVals1.get(i)<0){
-//                
-//                System.out.println("1: " + hashVals1.get(i));
-//                
-//            }
-//            if(hashVals2.get(i)>20011 || hashVals2.get(i)<0){
-//                
-//                System.out.println("2: " + hashVals2.get(i));
-//                
-//            }
-//            if(hashVals3.get(i)>20011 || hashVals3.get(i)<0){
-//                
-//                System.out.println("3: " + hashVals3.get(i));
-//                counttest++;
-//                
-//            }
-//            if(hashVals4.get(i)>20011 || hashVals4.get(i)<0){
-//                
-//                System.out.println("4: " + hashVals4.get(i));
-//                
-//            }
-//        
-//            
-//        }
-//        
-//        System.out.println(counttest);
+        for(int i = 0; i < 20011; i++){
+            
+            if(hashtbl1[i]!=0){
+                sum1 += (((double)hashtbl1[i])/10000) * Math.log((((double)hashtbl1[i])/10000)) * -1;
+            }
+            
+            if(hashtbl2[i]!=0){
+                sum2 += (((double)hashtbl2[i])/10000) * Math.log((((double)hashtbl2[i])/10000)) * -1;
+            }
+            
+            if(hashtbl3[i]!=0){
+                sum3 += (((double)hashtbl3[i])/10000) * Math.log((((double)hashtbl3[i])/10000)) * -1;
+            }
+            
+            if(hashtbl4[i]!=0){
+                sum4 += (((double)hashtbl4[i])/10000) * Math.log((((double)hashtbl4[i])/10000)) * -1;
+            }     
+            
+            
+        }
         
-//        double sum1 = 0;
-//        double sum2 = 0;
-//        double sum3 = 0;
-//        double sum4 = 0;
-//        
-//        for(int i = 0; i < 20011; i++){
-//            
-//            sum1 += -hashtbl1[i]*Math.log10(hashtbl1[i]);
-//            sum2 += -hashtbl2[i]*Math.log10(hashtbl2[i]);
-//            sum3 += -hashtbl3[i]*Math.log10(hashtbl3[i]);
-//            sum4 += -hashtbl4[i]*Math.log10(hashtbl4[i]);
-//            
-//        }
-//        
-//        System.out.println("1: " + sum1);
-//        System.out.println("2: " + sum2);
-//        System.out.println("3: " + sum3);
-//        System.out.println("4: " + sum4);
+        System.out.println("1: " + sum1);
+        System.out.println("2: " + sum2);
+        System.out.println("3: " + sum3);
+        System.out.println("4: " + sum4);
           
+    }
+    
+    public static void main(String [] args){
+        
+        EntropyCalculation ec = new EntropyCalculation();
+        ec.calculateEntropy();
+        
     }
     
 }
