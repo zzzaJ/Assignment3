@@ -7,41 +7,56 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+* EntropyCalculation class which handles the running of the entropy calculation.
+* The entropy calculation class deals with the running of code to determine the entropy for 
+* four various hash functions, of varying complexity and efficiency.
+*
+* @author  Dino Bossi
+* @version 1.0
+* @since   2017-01-05
+*/
 public class EntropyCalculation {
     
+   
     
-    
+    /**
+   * This method is used to load in the testdata and conduct calculations to determine entropy.
+   * The method reads the data from testdata and calculates a hash value for all provided keys (full names)
+   */
     public void calculateEntropy(){  
         
-        String [] keys = new String[10000];
+        String [] keys = new String[10000]; //initialize string array to hold full names
         
-        HashFunctions hf = new HashFunctions();
+        HashFunctions hf = new HashFunctions(); //initialize hash function object to allow hashing of keys
         
-        List<Integer> hashVals1 = new ArrayList();
-        List<Integer> hashVals2 = new ArrayList();
-        List<Integer> hashVals3 = new ArrayList();
-        List<Integer> hashVals4 = new ArrayList();
+        List<Integer> hashVals1 = new ArrayList(); //initialise list to hold hashvalues from hash1 method
+        List<Integer> hashVals2 = new ArrayList(); //initialise list to hold hashvalues from hash2 method
+        List<Integer> hashVals3 = new ArrayList(); //initialise list to hold hashvalues from hash3 method
+        List<Integer> hashVals4 = new ArrayList(); //initialise list to hold hashvalues from hash4 method
         
-        int [] hashtbl1 = new int[20011];
-        int [] hashtbl2 = new int[20011];
-        int [] hashtbl3 = new int[20011];
-        int [] hashtbl4 = new int[20011];
+        //initilising hash tables that allow the determining of hash value occurences (i.e. how many times a specific hash value is calculated)
         
-        String line;
+        int [] hashtbl1 = new int[20011]; // Initialising hash table to hold hash1 hashed values
+        int [] hashtbl2 = new int[20011]; // Initialising hash table to hold hash2 hashed values
+        int [] hashtbl3 = new int[20011]; // Initialising hash table to hold hash3 hashed values
+        int [] hashtbl4 = new int[20011]; // Initialising hash table to hold hash4 hashed values
         
-        try {
+        String line; //String variable to hold scanf lines
+        
+        try { //try and catch used to catch any errors encountered when reading in testdata
             
-            Scanner scanf = new Scanner(new File("testdata"));
-            for(int i = 0; i < 10000; i++){
+            Scanner scanf = new Scanner(new File("testdata")); //initialising scanner object to allow reading of testdata
+            for(int i = 0; i < 10000; i++){ // adding each full name from testdata to keys array 
                 
                 line = scanf.nextLine();
                 keys[i] = line.substring(line.lastIndexOf("|")+1);
                 
             }
             
-            scanf.close();
+            scanf.close(); //close scanner object 
             
-        } catch (FileNotFoundException ex) {
+        } catch (FileNotFoundException ex) { //subsequent catch to catch filenotfound errors
             
             Logger.getLogger(HashFunctions.class.getName()).log(Level.SEVERE, null, ex);
             
@@ -67,14 +82,14 @@ public class EntropyCalculation {
         }
  
        
-        double sum1 = 0;
+        double sum1 = 0;//initialising sum values to be used to calculate entropy
         double sum2 = 0;
         double sum3 = 0;
         double sum4 = 0;
         
 
         
-        for(int i = 0; i < 20011; i++){
+        for(int i = 0; i < 20011; i++){ //incrementing sum values to determine entropy for each hash function
             
             if(hashtbl1[i]!=0){
                 sum1 += (((double)hashtbl1[i])/10000) * Math.log((((double)hashtbl1[i])/10000)) * -1;
@@ -95,13 +110,18 @@ public class EntropyCalculation {
             
         }
         
-        System.out.println("1: " + sum1);
+        System.out.println("1: " + sum1); // printing the entropy values for each hash function
         System.out.println("2: " + sum2);
         System.out.println("3: " + sum3);
         System.out.println("4: " + sum4);
           
     }
     
+    
+   /**
+   * Main method used to call entropy calculation method.
+   * The main method allows for the execution of the calculate entropy method
+   */
     public static void main(String [] args){
         
         EntropyCalculation ec = new EntropyCalculation();
